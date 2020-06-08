@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <title>Model Hints</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="./static/CSS/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+</head>
+<body>
+
+
+<div class="pos-f-t">
+    <div class="collapse" id="navbarToggleExternalContent">
+        <div class="bg-light p-4">
+            <h4 class="text-white">Collapsed content</h4>
+            <span class="text-muted">Toggleable via the navbar brand.</span>
+        </div>
+    </div>
+    <nav class="navbar navbar-dark bg-primary">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent"
+                aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </nav>
+</div>
+
+<div class="section no-pad-bot" id="index-banner">
+    <div class="container">
+        <br><br>
+        <h1 class="header center orange-text">Forest Fire Prevention</h1>
+        <div class="row center">
+            <h5 class="header col s12 light">Predict the probability of Forest-Fire Occurence
+                <br>
+            </h5>
+        </div>
+        <p> prog </p>
+        <div class="row">
+            <form action='/predict' method="post" class="col s12">
+                <div class="row">
+                    <div class="input-field col s4">
+                        <label for="first_name"><b>Temperature</b></label>
+                        <br>
+                        <input placeholder="Temperature in Celsius" name="Temperature" id="first_name" type="text"
+                               class="validate">
+                    </div>
+                    <div class="input-field col s4">
+                        <label for="last_name"><b>Oxygen </b></label>
+                        <br>
+                        <input id="last_name" name="Oxygen" placeholder="Oxygen content in ppm" type="text"
+                               class="validate">
+                    </div>
+                    <div class="input-field col s4">
+                        <label for="_name"><b>Humidity</b></label>
+                        <br>
+                        <input id="_name" name="Humidity" placeholder="Humidity %" type="text" class="validate">
+                    </div>
+                </div>
+                <div class="row center">
+                    <button type="submit" class="btn-large waves-effect waves-light orange">Predict Probability</button>
+                </div>
+            </form>
+        </div>
+        <br>
+        {{ pred }}<br>
+    </div>
+</div>
+
+<footer class="footer">
+    <div class="f_div">
+        <div class="row">
+            <p class="grey-text text-lighten-4">As a student in 'Handelseakademin' college, working on this project
+                in a full time. Any notice that could help support my job would be greatly appreciated!
+                 Ammar Sahyoun mail: ammarzgr@hotmail.com
+            </p>
+            <h5 class="white-text">Settings</h5>
+        </div>
+    </div>
+</footer>
+
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+
+</body>
+</html>
