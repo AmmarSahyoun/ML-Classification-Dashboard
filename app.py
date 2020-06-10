@@ -1,47 +1,44 @@
-from flask import Flask, request, url_for, redirect, render_template
-import pickle
+import streamlit as st
+import pandas as pd
 import numpy as np
-
-app = Flask(__name__)
-
-model = pickle.load(open('model.pkl', 'rb'))
-
-# pkl_file = open('/model.pkl', 'rb')
-# model = pickle.load(pkl_file)
-# pkl_file.close()
-
-
-# objects = []
-# with (open("myfile", "rb")) as openfile:
-#     while True:
-#         try:
-#             objects.append(pickle.load(openfile))
-#         except EOFError:
-#             break
-
-@app.route('/')
-def hello_world():
-    return render_template("index.html")
+from sklearn.svm import SVC
+from sklearn.linear_model import LogisticRegression
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.preprocessing import LabelEncoder
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import plot_confusion_matrix, plot_roc_curve, plot_precision_recall_curve
+from sklearn.metrics import precision_score, recall_score
 
 
-@app.route('/predict', methods=['POST', 'GET'])
-def predict():
-    int_features = [int(x) for x in request.form.values()]
-    final = [np.array(int_features)]
-    print(int_features)
-    print(final)
-    prediction = model.predict_proba(final)
-    output = '{0:.{1}f}'.format(prediction[0][1], 2)
+def main():
+    st.title("Model Hints Web App")
+    st.title("Binary Problem Classification")
+    st.sidebar.title("ModelHints WebApp")
+    st.markdown("Q: 🍄Are your mushrooms edible or poisonous?🍄")
+    st.sidebar.markdown("Are your mushrooms edible or poisonous? 🍄")
 
-    if output > str(0.5):
-        return render_template('index.html',
-                               pred='Your Forest is in Danger.\nProbability of fire occuring is {}'.format(output),
-                               bhai="kuch karna hain iska ab?")
-    else:
-        return render_template('index.html',
-                               pred='Your Forest is safe.\n Probability of fire occuring is {}'.format(output),
-                               bhai="Your Forest is Safe for now")
+    @st.cache(persist=True)
+    def load_data():
+        data = pd.read_csv("mushrooms.csv")
+        labelencoder = LabelEncoder()
+        for col in data.columns:
+            data[col] = labelencoder.fit_transform(data[col])
+        return data
+
+    @st.cache(persist=True)
+    def split(df):
+        y = df.type
+        X = df.drop(columns=['type'])
+        X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=0)
+        return X_train, X_test, y_train, y_test
+
+    df = load_data()
+    X_train, X_test, y_train, y_test = split(df)
+
+    if st.sidebar.checkbox("Show raw data", False):
+        st.subheader("Mushroom DataSet (8124, 23) used for classification problem")
+        st.write(df)
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    main()
