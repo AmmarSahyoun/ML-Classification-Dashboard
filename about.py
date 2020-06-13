@@ -1,6 +1,5 @@
 import streamlit as st
 
-
 def display_about():
     st.markdown('## About')
 
@@ -13,11 +12,10 @@ def display_about():
     st.markdown('* Confusion Matrix: that shows true/false positive and negative values.')
     st.markdown('* Precision/Recall curve: that show trade-off precision and recall.')
 
-
 def display_contribute():
     st.sidebar.markdown('---')
-    st.sidebar.title('Contribute')
-    st.sidebar.info('If you like the idea and want to contribute to this application, please feel free to contact me and fork my repo [** github **](https://github.com/AmmarSahyoun/ModelHints)')
     st.sidebar.title('About')
     st.sidebar.info('Model Hints web app **version 0.0.1** has been developed as an AI Collage assignment by [** Ammar Sahyoun **](https://www.linkedin.com/in/ammar-sahyoun-2498339a/) using: [Python](https://www.python.org/), \
-    and [Streamlit](https://streamlit.io/).')
+        and [Streamlit](https://streamlit.io/).')
+    st.sidebar.title('Contribute')
+    st.sidebar.info('If you like the idea and want to contribute to this application, please feel free to contact me and fork my repo [** github **](https://github.com/AmmarSahyoun/ModelHints)')
