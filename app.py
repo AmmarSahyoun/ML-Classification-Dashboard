@@ -11,6 +11,7 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import plot_confusion_matrix, plot_roc_curve, plot_precision_recall_curve
 from sklearn.metrics import precision_score, recall_score
 from PIL import Image
+from sklearn.preprocessing import StandardScaler
 from sklearn.preprocessing import LabelEncoder
 from sklearn.model_selection import train_test_split
 
@@ -66,6 +67,11 @@ def main():
         st.sidebar.subheader("Choose Classifier")
         classifier = st.sidebar.selectbox("",
                                           ("Support Vector Machine (SVM)", "Logistic Regression", "Random Forest"))
+        
+        if st.sidebar.checkbox("Feature Scaling", False):
+            sc = StandardScaler()
+            X_train = sc.fit_transform(X_train)
+            X_test = sc.transform(X_test)
 
         if st.checkbox("Show raw data", False):
             st.subheader("Mushroom DataSet (8124, 23) used for classification problem")
@@ -111,7 +117,7 @@ def main():
                 y_pred = model.predict(X_test)
                 st.write("Model accuracy: ", accuracy.round(2))
                 st.write("Model precision: ", precision_score(y_test, y_pred, labels=class_names).round(2))
-                st.write("Model rcall: ", recall_score(y_test, y_pred, labels=class_names).round(2))
+                st.write("Model recall: ", recall_score(y_test, y_pred, labels=class_names).round(2))
                 plot_metrics(metrics)
 
         if classifier == 'Random Forest':
