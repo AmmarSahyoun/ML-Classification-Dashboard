@@ -10,7 +10,8 @@ def display_about():
     st.markdown('3- Random Forest')
     st.markdown(' To figure out the **accuracy**, **precision** and **recall** values. Besides that the user could set own parameters values or even choose which metric to plot between:')
     st.markdown('* Confusion Matrix: that shows true/false positive and negative values.')
-    st.markdown('* Precision/Recall curve: that show trade-off precision and recall.')
+    st.markdown('* Roc_curve: a graph that summarizes the classifier performance.')
+    st.markdown('* Precision/Recall : that show trade-off precision and recall.')
 
 def display_contribute():
     st.sidebar.markdown('---')
