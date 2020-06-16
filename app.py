@@ -7,8 +7,8 @@ from PIL import Image
 
 
 def main():
-    menu = ['Mushroom data', 'About', 'Upload dataset']
-    menuSelection = st.sidebar.radio('', menu, index=1, key=None)
+    menu = ['About', 'Mushroom data', 'Upload dataset']
+    menuSelection = st.sidebar.radio('', menu, index=0, key=None)
 
     if menuSelection == 'About':
         header()
@@ -19,22 +19,25 @@ def main():
 
     if menuSelection == 'Upload dataset':
         st.success("# _Model Hints_Web App_ `version0.0.1` ")
-        st.title("3-Models of Binary Classification")
-        st.header(" **📁Uplaod CSV file**")
+        st.markdown("<h1 style = 'text-align: center; color: green;' > 3-Models of Binary Classification </ h1>",
+                    unsafe_allow_html=True)
+        st.markdown("<h3 style = 'text-align: center; color: Blue;' >  📁Uplaod CSV file  </ h3>",
+                    unsafe_allow_html=True)
         uploadFile()
-
-
 
     if menuSelection == 'Mushroom data':
         header()
         mushromm.mushroomSetup()
 
+
 def header():
     st.success("# _Model Hints_Web App_ `version0.0.1` ")
-    st.title("3-Models of Binary Classification")
+    st.markdown("<h1 style='text-align: center; color:green;'> 3-Models of Binary Classification </ h1>",
+                unsafe_allow_html=True)
     img = Image.open("./templates/mushroom.jpg")
     st.image(img)
     st.header(" **🍄Are your mushrooms edible or poisonous?🍄**")
+
 
 def uploadFile():
     uploaded_file = st.file_uploader("", type="csv")
@@ -42,34 +45,32 @@ def uploadFile():
         dataFrame = pd.read_csv(uploaded_file)
 
     try:
-        EA = UploadFile.FileInfo(dataFrame)
+        uploadedData = UploadFile.FileInfo(dataFrame)
         st.success('Successfully uploaded!')
 
-        st.title('Dataframe basic informations')
+        st.title('Select a function:')
+        dfInfo = st.selectbox("", ['Head', 'Describe', 'Info', 'Isnull', 'Unique values and iteration'])
 
-        st.sidebar.subheader('Basica exploratory analysis options')
-        if st.sidebar.checkbox('Basic informations'):
+        if dfInfo == 'Head':
+            st.subheader('Dataframe head:')
+            st.write(dataFrame.head())
 
-            if st.sidebar.checkbox('Head'):
-                st.subheader('Dataframe head:')
-                st.write(dataFrame.head())
+        if dfInfo == 'Describe':
+            st.subheader('Dataframe description:')
+            st.write(dataFrame.describe())
 
-            if st.sidebar.checkbox('Describe'):
-                st.subheader('Dataframe description:')
-                st.write(dataFrame.describe())
+        if dfInfo == 'Info':
+            st.subheader('Dataframe informations:')
+            st.text(uploadedData.info())
 
-            if st.sidebar.checkbox('Info'):
-                st.subheader('Dataframe informations:')
-                st.text(EA.info())
+        if dfInfo == 'Isnull':
+            st.subheader('Null occurrences')
+            st.write(dataFrame.isnull().sum())
 
-            if st.sidebar.checkbox('Isnull'):
-                st.subheader('Null occurrences')
-                st.write(dataFrame.isnull().sum())
-
-            if st.sidebar.checkbox('Unique values and frequency'):
-                col = st.sidebar.selectbox('Choose a column for see unique values', EA.columns)
-                st.subheader('Unique values and frequency')
-                st.write(EA.info2(col))
+        if dfInfo == 'Unique values and iteration':
+            col = st.selectbox('Choose a column to see unique values', uploadedData.columns)
+            st.subheader('Unique values and iteration')
+            st.write(uploadedData.info2(col))
 
     except:
         st.error('Upload a CSV file to get started.')
