@@ -13,7 +13,6 @@ from sklearn.model_selection import train_test_split
 
 
 def mushroomSetup():
-
     @st.cache(persist=True)
     def load_data():
         data = pd.read_csv("./data/mushrooms.csv")
@@ -57,7 +56,7 @@ def mushroomSetup():
         X_train = sc.fit_transform(X_train)
         X_test = sc.transform(X_test)
 
-    if st.checkbox("Show raw data", False):
+    if st.checkbox("Display the raw data", False):
         st.subheader("Mushroom DataSet (8124, 23) used for classification problem")
         st.write(df)
         st.markdown(
@@ -69,15 +68,14 @@ def mushroomSetup():
     all_columns_names = df.columns.tolist()
     type_of_plot = st.selectbox("Select Type of the Plot", ["Histogram", "box-chart", "kernel density estimation"])
     selected_columns_names = st.multiselect("Select Columns To Plot", all_columns_names)
-    # try:catch when no columns selected
     if st.button("Plot a metric"):
         try:
-            if type_of_plot== 'Histogram':
-                type_of_plot="hist"
-            if type_of_plot== 'box-chart':
-                type_of_plot="box"
-            if type_of_plot=="kernel density estimation":
-                type_of_plot='kde'
+            if type_of_plot == 'Histogram':
+                type_of_plot = "hist"
+            if type_of_plot == 'box-chart':
+                type_of_plot = "box"
+            if type_of_plot == "kernel density estimation":
+                type_of_plot = 'kde'
             cust_plot = df[selected_columns_names].plot(kind=type_of_plot)
             st.write(cust_plot)
             st.pyplot()
@@ -87,10 +85,10 @@ def mushroomSetup():
     if classifier == 'Support Vector Machine (SVM)':
         st.sidebar.subheader("Model Hyperparameters")
         C = st.sidebar.number_input("C (Regularization parameter)", 0.01, 10.0, step=0.01, key='C_SVM')
-        kernel = st.sidebar.radio("Kernel", ("rbf", "linear"), key='kernel')
-        gamma = st.sidebar.radio("Gamma (Kernel Coefficient)", ("scale", "auto"), key='gamma')
+        kernel = st.sidebar.radio("Kernel", ("rbf", "linear"), key='kernel', index=1)
+        gamma = st.sidebar.radio("Gamma (Kernel Coefficient)", ("scale", "auto"), index=1, key='gamma')
 
-        st.sidebar.subheader("Choose a metric to plot:")
+        st.sidebar.subheader("Choose metrics to plot:")
         metrics = st.sidebar.multiselect("",
                                          ('Confusion Matrix', 'ROC Curve', 'Precision-Recall Curve'))
         if st.sidebar.button("Classify", key='classify'):
