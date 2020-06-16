@@ -4,7 +4,7 @@ def display_about():
     st.markdown('## About')
 
     st.markdown('The [**UCI mushroom dataset** ](https://archive.ics.uci.edu/ml/datasets/Mushroom) that provides machine learning capabilities is used in binary classification problem to see if the mushroom is edible or poisonous. ')
-    st.markdown('This project does not aim to just fit and plot 3-classifiers with the mushroom dataset, Moreover, I build a web app that allows users to **interactively change the parameters of the classifiers: ** ')
+    st.markdown('This project does not aim to just fit and plot 3-classifiers with the mushroom dataset, **Moreover**, I build a web app that allows the users to upload their own CSV files, analyze the data association and **interactively tune the hyperparameters of the classifiers: ** ')
     st.markdown('1- Support Vector Machine ')
     st.markdown('2- Logistic Regression')
     st.markdown('3- Random Forest')
